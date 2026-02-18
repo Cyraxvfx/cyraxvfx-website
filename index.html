@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyrax Coding Environment</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{background:#000;color:#fff;font-family:'Inter',sans-serif;overflow-x:hidden;}
+canvas{position:fixed;top:0;left:0;z-index:-3;}
+
+/* NAV */
+nav{position:fixed;width:100%;padding:25px 10%;display:flex;justify-content:space-between;background:rgba(0,0,0,0.6);backdrop-filter:blur(12px);z-index:1000;}
+nav h2, nav a{font-family:'Orbitron';text-shadow:0 0 15px #fff;}
+nav a{color:#aaa;text-decoration:none;margin-left:40px;transition:0.3s;}
+nav a:hover{color:#fff;text-shadow:0 0 25px #fff;}
+
+/* GENERAL SECTION */
+section{min-height:100vh;padding:180px 10%;position:relative;opacity:0;transform:translateY(50px);transition:all 1s ease;}
+section.visible{opacity:1;transform:translateY(0);}
+section:hover{background:rgba(255,255,255,0.03);}
+
+/* HERO */
+.hero{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.hero h1{font-family:'Orbitron';font-size:4rem;text-shadow:0 0 25px #fff;}
+.button{margin-top:30px;padding:15px 40px;border:2px solid #fff;border-radius:50px;background:transparent;color:#fff;font-family:'Orbitron';cursor:pointer;transition:0.4s;}
+.button:hover{background:#fff;color:#000;box-shadow:0 0 35px #fff;}
+
+/* CODE BOX */
+.code-box{width:550px;background:#0a0a0a;padding:30px;border:1px solid #333;border-radius:20px;box-shadow:0 0 40px rgba(255,255,255,0.2);}
+.code-box pre{font-family:monospace;font-size:0.9rem;line-height:1.5;text-shadow:0 0 8px #fff;}
+.cursor{display:inline-block;width:8px;background:#fff;animation:blink 1s infinite;}
+@keyframes blink{50%{opacity:0;}}
+
+/* LANGUAGES */
+.languages{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px;}
+.lang-card{background:#111;padding:50px;border:1px solid #333;border-radius:25px;transition:0.4s;}
+.lang-card:hover{transform:translateY(-12px);box-shadow:0 0 35px #fff;}
+.lang-card img{width:65px;margin-bottom:20px;}
+.lang-card h3{font-family:'Orbitron';margin-bottom:10px;}
+
+/* ADVANTAGES */
+.advantages{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:50px;}
+.adv-card{background:#111;padding:60px;border-radius:30px;border:1px solid #333;text-align:center;transition:0.4s;}
+.adv-card:hover{transform:scale(1.08);box-shadow:0 0 50px #fff;}
+.adv-card img{width:80px;margin-bottom:25px;}
+.adv-card h3{font-family:'Orbitron';margin-bottom:15px;}
+.adv-card p{font-size:0.95rem;line-height:1.5;}
+
+/* PROJECTS */
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:50px;}
+.project-card{background:#111;padding:30px;border-radius:30px;border:1px solid #333;text-align:center;transition:0.4s;}
+.project-card:hover{transform:scale(1.05);box-shadow:0 0 50px #0ff;}
+.project-card img{width:100%;border-radius:20px;margin-bottom:20px;object-fit:cover;height:200px;}
+.project-card h3{font-family:'Orbitron';margin-bottom:15px;}
+.project-card p{font-size:0.95rem;line-height:1.5;margin-bottom:20px;}
+.project-card a{display:inline-block;padding:12px 40px;border:2px solid #0ff;border-radius:30px;color:#0ff;text-decoration:none;transition:0.4s;font-family:'Orbitron';}
+.project-card a:hover{background:#0ff;color:#000;box-shadow:0 0 35px #0ff;}
+
+/* CONTACT */
+#contact{display:flex;justify-content:center;align-items:center;}
+.contact-box{background:#111;padding:80px;border-radius:40px;border:1px solid #333;text-align:center;transition:0.5s;}
+.contact-box:hover{box-shadow:0 0 60px #fff;}
+.discord-btn{display:inline-block;margin-top:30px;padding:18px 50px;border:2px solid #fff;border-radius:50px;font-family:'Orbitron';text-decoration:none;color:#fff;transition:0.4s;}
+.discord-btn:hover{background:#fff;color:#000;box-shadow:0 0 40px #fff;transform:scale(1.1);}
+
+/* FOOTER */
+footer{text-align:center;padding:40px;border-top:1px solid #222;}
+
+/* RESPONSIVE */
+@media(max-width:1000px){.hero{flex-direction:column;}.code-box{width:100%;}}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<nav>
+<h2>CYRAX</h2>
+<div>
+<a href="#languages">Languages</a>
+<a href="#advantages">Advantages</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<section class="hero">
+<div>
+<h1>CYRAX CODING ENVIRONMENT</h1>
+<button class="button">ACCESS SYSTEM</button>
+</div>
+<div class="code-box">
+<pre id="code"></pre><span class="cursor"></span>
+</div>
+</section>
+
+<section id="languages">
+<h1 style="font-family:'Orbitron';margin-bottom:50px;">Programming Arsenal</h1>
+<div class="languages">
+<div class="lang-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg"><h3>C#</h3><p>Advanced object-oriented backend and game systems.</p></div>
+<div class="lang-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"><h3>JavaScript</h3><p>Dynamic, interactive websites and web apps.</p></div>
+<div class="lang-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><h3>HTML</h3><p>Structuring scalable web interfaces.</p></div>
+<div class="lang-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg"><h3>C</h3><p>High-performance systems and low-level software.</p></div>
+<div class="lang-card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><h3>Python</h3><p>Automation, AI, and backend programming.</p></div>
+</div>
+</section>
+
+<section id="advantages">
+<h1 style="font-family:'Orbitron';margin-bottom:50px;">Advantages</h1>
+<div class="advantages">
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/lightning-bolt.png"><h3>Fast Learner</h3><p>At 16, 6 years of experience. Quick to adapt to any new language or framework and produce results efficiently.</p></div>
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/brain.png"><h3>Problem Solver</h3><p>Analytical thinker, debugging efficiently, creating scalable solutions that work.</p></div>
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/rocket.png"><h3>Future Oriented</h3><p>Builds code that scales and adapts to future needs.</p></div>
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/code.png"><h3>Creative Developer</h3><p>Logic + creativity = visually appealing and functional applications.</p></div>
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/refresh.png"><h3>Dedicated</h3><p>Consistently improves and refines projects for highest quality.</p></div>
+<div class="adv-card"><img src="https://img.icons8.com/ios-filled/100/ffffff/verified-account.png"><h3>Reliable</h3><p>Professional, meets deadlines, communicates clearly, and delivers top-tier results.</p></div>
+</div>
+</section>
+
+<section id="projects">
+<h1 style="font-family:'Orbitron';margin-bottom:50px;">Elite Projects</h1>
+<div class="projects">
+
+<div class="project-card">
+<img src="https://i.ibb.co/7Qf4JbR/launcher.png" alt="Cyrax Launcher">
+<h3>Cyrax Launcher</h3>
+<p>A sleek application launcher for games and programs, built with C# and Python for speed and usability.</p>
+<a href="#">Launch Demo</a>
+</div>
+
+<div class="project-card">
+<img src="https://i.ibb.co/4dG7r2D/ai-bot.png" alt="AI Assistant Bot">
+<h3>AI Assistant Bot</h3>
+<p>An intelligent bot using Python and JS that manages tasks, sets reminders, and automates processes efficiently.</p>
+<a href="#">View Demo</a>
+</div>
+
+<div class="project-card">
+<img src="https://i.ibb.co/z7xG6Qc/portfolio-builder.png" alt="Portfolio Builder">
+<h3>Portfolio Builder Web App</h3>
+<p>A drag-and-drop web portfolio creator built with HTML, CSS, JS that generates interactive, responsive sites instantly.</p>
+<a href="#">Try Demo</a>
+</div>
+
+</div>
+</section>
+
+<section id="contact">
+<div class="contact-box">
+<h1 style="font-family:'Orbitron';">Contact Me</h1>
+<p>Message me directly on Discord.</p>
+<a class="discord-btn" href="https://discord.com/users/638253864273051698" target="_blank">MESSAGE ME (matanvfx)</a>
+</div>
+</section>
+
+<footer>© 2026 Cyrax</footer>
+
+<script>
+/* MOVING STARS */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let stars=[];
+for(let i=0;i<300;i++){stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,speed:Math.random()*0.5+0.2});}
+function animateStars(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle="white";stars.forEach(s=>{s.y+=s.speed;if(s.y>canvas.height){s.y=0;}ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(animateStars);}
+animateStars();
+
+/* SCROLL ANIMATION */
+const sections=document.querySelectorAll('section');
+window.addEventListener('scroll',()=>{sections.forEach(sec=>{if(window.scrollY+window.innerHeight>sec.offsetTop+100){sec.classList.add('visible');}});});
+
+/* CODING ANIMATION (type once, stays visible) */
+const codeLines=["class Cyrax {","    int age = 16;","    string experience = \"6 Years\";","    void Build(){ Design(); Develop(); Optimize(); }","    void Improve(){ while(true){ Learn(); } }","}"];
+let line=0,char=0;const codeEl=document.getElementById("code");
+function typeCode(){if(line<codeLines.length){if(char<codeLines[line].length){codeEl.innerHTML+=codeLines[line].charAt(char);char++;setTimeout(typeCode,30);}else{codeEl.innerHTML+="\n";line++;char=0;setTimeout(typeCode,200);}}}
+typeCode();
+</script>
+</body>
+</html>
+
